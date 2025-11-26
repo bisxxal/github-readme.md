@@ -1,0 +1,8 @@
+name: Super_bot_rag
+
+services:
+  rag_model:
+    image: qdrant/qdrant
+    container_name: rag_model
+    ports:
+      - "6333:6333"
