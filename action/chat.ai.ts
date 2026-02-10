@@ -209,5 +209,3 @@ Now, using ONLY the information in the PROJECT CONTENT above, generate the final
     console.log(res);
     return res;
 }
-
-// Vishal B_web_collection

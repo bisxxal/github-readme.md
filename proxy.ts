@@ -3,7 +3,7 @@ import { withAuth } from "next-auth/middleware"
 import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
 
-export default withAuth( async function middleware(req: NextRequest) {
+export default withAuth( async function proxy(req: NextRequest) {
     // Allow access for authenticated users
     const { nextUrl } = req;
     const token = await getToken({ req })

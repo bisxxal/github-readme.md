@@ -67,11 +67,9 @@ const customButton = {
 export default function ReadmeEditor({value, setValue}: {value: string, setValue: (value: string) => void}) {
   return (
     <div className="container">
-      <div>The system automatically sets the theme</div>
       <MDEditor
         value={value}
         preview="edit"
-        
         extraCommands={[codePreview, customButton, commands.fullscreen]}
         onChange={(val) => setValue(val)}
       />

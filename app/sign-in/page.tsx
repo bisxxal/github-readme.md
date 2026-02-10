@@ -1,6 +1,5 @@
 'use client'
-import React, { useState, useEffect } from 'react';
-import { GraduationCap, ArrowLeft, Shield, Users, Zap, Eye, EyeOff } from 'lucide-react';
+import { GraduationCap, ArrowLeft, Shield} from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { signIn, useSession } from 'next-auth/react';
 import Link from 'next/link';
@@ -12,8 +11,7 @@ const SignInPage = () => {
   if (data?.user && status === 'authenticated') {
     router.push('/docs');
   }
-
-
+ 
   return (
     <div className="min-h-screen flex text-[#111827]"  >
 

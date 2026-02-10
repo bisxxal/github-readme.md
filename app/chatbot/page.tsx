@@ -2,7 +2,7 @@
 import { chatAIAction } from "@/action/chat.ai";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react"
-import MDEditor from '@uiw/react-md-editor';
+import MDEditor, { codeBlock } from '@uiw/react-md-editor';
 import ReadmeEditor from "@/components/ui/readmeeditor";
 
 export default function ChatbotPage() {
@@ -27,20 +27,25 @@ export default function ChatbotPage() {
   }
 
   return (
-    <div className="flex flex-col h-screen max-h-screen  backdrop-blur-[10px] text-white rounded-lg shadow-lg p-4">
+    <div className="flex flex-col h-screen min-h-screen  backdrop-blur-[10px] text-white rounded-lg shadow-lg p-4">
 
-
-      <MDEditor
+      {/* <MDEditor
         value={messages}
         // onChange={setMessages}
         onChange={(value) => setMessages(value)}
         height={500}
-
+        extraCommands={[codeBlock]}
       // fullscreen={true}
-      />
+      /> */}
+
       {/* <MDEditor.Markdown source={messages} style={{ whiteSpace: 'pre-wrap' }} /> */}
 
-      <ReadmeEditor value={messages} setValue={setMessages} />
+
+      <div className=" w-full h-screen overflow-scroll">
+        <MDEditor.Markdown source={messages} height={500}style={{padding:'50px'}} />
+      </div>
+
+      <ReadmeEditor value={messages} setValue={setMessages} extraCommands={[]} style={{padding:'50px'}} />
 
 
       <div className=" bg-red-500 flex justify-end items-center">

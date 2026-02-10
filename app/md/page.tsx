@@ -1,3 +1,50 @@
+'use client'
+// import React, { useState } from 'react'
+// import ReactMarkdown from 'react-markdown'
+// export default function MarkdownEditor() {
+//     const [markdownInput, setMarkdownInput] = useState()
+//     return (
+//         <div className="App">
+//             <div className="wrapper">
+//                 <div className="head">
+//                     MARKDOWN
+//                 </div>
+//                 <textarea
+//                     autoFocus
+//                     className="textarea"
+//                     value={markdownInput}
+//                     onChange={
+//                         (e) =>
+//                             setMarkdownInput(e.target.value)
+//                     }
+//                 ></textarea>
+//             </div>
+//             <div className="wrapper">
+//                 <div className="head">
+//                     PREIVEW
+//                 </div>
+//                 <ReactMarkdown
+//                     children={markdownInput}
+//                     components={{
+//                         // code: MarkComponent,
+//                         code:MarkComponent
+//                     }}
+//                 />
+//             </div>
+//         </div>
+//     )
+// }
+// const MarkComponent = ({ value }) => {
+//     return (
+//         { value }
+//     )
+// }
+
+import React from 'react';
+import MarkdownPreview from '@uiw/react-markdown-preview';
+
+const source = String.raw '
+
 # 📚 Be Present
 
 <img width="1456" height="917" alt="Screenshot 2025-07-22 at 21 47 52" src="https://github.com/user-attachments/assets/4bd24864-c11d-4954-8893-5ac4ba068a71" />
@@ -142,3 +189,23 @@ Make sure you have the following installed:
 ⭐ **Star this repository if you find it helpful!**
 
 Made with ❤️ by Bishal
+
+' ;
+
+export default function Demo() {
+  return (
+    <div className=' w-full '>
+
+      <MarkdownPreview
+      source={source}
+      style={{ padding: 16 }}
+      rehypeRewrite={(node, index, parent) => {
+        if (node.tagName === "a" && parent && /^h(1|2|3|4|5|6)/.test(parent.tagName)) {
+          parent.children = parent.children.slice(1)
+        }
+      }}
+    />
+
+    </div>
+  );
+}

@@ -15,7 +15,6 @@ function DashBoardPage() {
         if (!github) {
             return toastError('Please provide a valid github url');
         }
-
         const collectionName = data?.user.name + "_github_collection" + Date.now();
         createCollections.mutate({ url: github, collectionName })
     }

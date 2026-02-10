@@ -20,21 +20,19 @@ const qclient = new QdrantClient({
 });
 
 
-export const generateEmbeddings = async (url: string, collection_name: string) => {
+export const generateEmbeddings = async (url: string ) => {
     const session = await getServerSession(authOptions);
 
     if (!session?.user?.id) {
         return "Unauthorized: user not authenticated";
     }
 
-    if (!url && !collection_name) {
+    if (!url  ) {
         return "Invalid parameters"
     }
     
     const userId = session?.user.id!;
-
-    console.log(url , collection_name)
-
+ 
     const loader = new GithubRepoLoader(
         url, {
         branch: "main",
@@ -62,7 +60,7 @@ export const generateEmbeddings = async (url: string, collection_name: string) =
         emmbeddings,
         {
             client: qclient,
-            collectionName: collection_name,
+            collectionName: url,
         }
     );
 

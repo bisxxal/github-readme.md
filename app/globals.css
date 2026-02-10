@@ -24,3 +24,89 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 } */
+
+body {
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+}
+
+.App {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    align-items: center;
+}
+.center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.wrapper {
+    width: 45%;
+    height: 80%;
+    margin: 25px;
+    outline: none;
+    display: flex;
+    padding: 20px;
+    background: #eceeee;
+    flex-direction: column;
+    border: 2px solid #ccc;
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+.head {
+    width: 100%;
+    height: 40px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+}
+
+textarea {
+    padding: 15px;
+    border: none;
+    outline: none !important;
+    width: 96%;
+    height: 100%;
+    overflow-x: hidden;
+    font-size: 17px;
+    resize: none;
+    background: #eceeee;
+}
+
+.markdown {
+    padding: 15px;
+    border: none;
+    outline: none !important;
+    width: 96%;
+    height: 100%;
+    resize: none;
+    overflow-x: hidden;
+    background: #fff;
+}
+
+@keyframes pulseShimmer {
+  from {
+    background-position: -1000px;
+  }
+  to {
+     background-position: 1000px;
+  }
+}
+
+.buttonbg{
+  cursor: pointer;
+  box-shadow: inset -12px -7px 17px 11px #00000017, 0 8px 10px -6px #0000001a ;
+  @apply text-white px-4 py-2 transition-all  duration-500 rounded-full bg-gradient-to-tr  from-[#3333c2] to-[#6666ff] ;
+}
+.buttongreen{
+  @apply text-white px-4 py-2 transition-all duration-500 rounded-full bg-gradient-to-br  from-[#07f733] font-medium to-[#02970e];
+  box-shadow: inset -12px -3px 20px 2px #00000021, 0 8px 10px -6px rgb(0 0 0 / 0.1) ;
+}
+.buttonred{
+  @apply text-white px-4 py-2 transition-all duration-500 rounded-full font-medium bg-gradient-to-br  from-pink-600  to-red-500;
+  box-shadow: inset -12px -3px 20px 2px #00000021, 0 8px 10px -6px rgb(0 0 0 / 0.1) ;
+}

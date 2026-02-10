@@ -1,5 +1,4 @@
 name: Super_bot_rag
-
 services:
   rag_model:
     image: qdrant/qdrant
