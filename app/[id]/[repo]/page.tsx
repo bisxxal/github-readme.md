@@ -1,25 +1,22 @@
 'use client'
-import { usePathname, useSearchParams } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { generateEmbeddings } from "@/action/vector.embdings"
-import { toastError, toastSuccess } from "@/lib/toast"
+import { toastSuccess } from "@/lib/toast"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
-import { useSession } from "next-auth/react"
-import { useRouter } from "next/navigation"
 import Repofront from '@/components/repofront';
 import { chatAIAction } from "@/action/chat.ai";
 import { useState } from "react"
 import MDEditor from '@uiw/react-md-editor';
 import ReadmeEditor from "@/components/ui/readmeeditor";
-
+import { repoToCollectionName } from '@/lib/util';
+import Loading from '@/components/ui/loading';
 
 const Idpage = () => {
+    const client = useQueryClient();
     const path = usePathname();
     const owner = path.split("/")[1];
     const repo = path.split("/")[2];
-
-    const client = useQueryClient();
- 
-    const giturl = `https://github.com/${path}`
+    const giturl = `https://github.com${path}`
 
     const createCollections = useMutation({
         mutationFn: async () => {
@@ -28,18 +25,16 @@ const Idpage = () => {
         onSuccess: (data) => {
             if (data) {
                 const col = data?.collection as string;
+                console.log(col, data)
                 toastSuccess('collection added successfully!');
                 client.invalidateQueries({ queryKey: ['modelsinfo'] });
-                // router.push(`/chatbot?c=${col}`);
             } else {
                 toastSuccess('failed to add collection ');
             }
         },
     });
 
-
-    const search = useSearchParams(); // github.com/bisxxal/readmemd  
-    const collections = search.get("c") || "";
+    const collectionName = repoToCollectionName(giturl);
 
     const [messages, setMessages] = useState()
     const [isLoading, setIsLoading] = useState(false)
@@ -48,7 +43,7 @@ const Idpage = () => {
     const handleSend = async () => {
         setIsLoading(true)
         try {
-            const res = await chatAIAction(collections);
+            const res = await chatAIAction(collectionName);
             if (!res) return;
             setMessages(res)
         } catch (err) {
@@ -66,19 +61,29 @@ const Idpage = () => {
 
                 <div className='center flex-col border h-[95%] rounded-3xl overflow-hidden w-full border-black'>
 
-                    <form >
-                        <div className="card  mb-6 p-4  py-5 rounded-3xl flex flex-col placeholder:text-gray-50">
-                            <button onClick={()=>createCollections()} disabled={createCollections.isPending} className="buttonbg disabled:opacity-20 px-4 py-2 rounded text-white">Generate ReadMe File</button>
+                    {/* Button div */}
+                    <div>
+                        <form>
+                            <div className="card  mb-6 p-4  py-5 rounded-3xl flex flex-col placeholder:text-gray-50">
+                                <button onClick={() => createCollections.mutate()} disabled={createCollections.isPending} className="buttonbg disabled:opacity-20 px-4 py-2 rounded text-white">Create collections</button>
+                            </div>
+                        </form>
+
+                        <div>
+                            {isLoading && <Loading boxes={1} child='w-full h-full !rounded-2xl' parent='w-[1500px] h-[200px] ' />}
+                            <button onClick={() => handleSend()} className='buttonbg p-2'>Generate readme</button>
                         </div>
-                    </form>
 
-
-
-                    <div className=" w-full h-screen overflow-scroll">
-                        <MDEditor.Markdown source={messages} style={{ padding: '50px', borderRadius: '20px' }} />
                     </div>
 
-                    <ReadmeEditor value={messages} setValue={setMessages} extraCommands={[]} style={{ padding: '50px' }} />
+                    {<>
+                        <div className=" w-full h-screen overflow-scroll">
+                            <MDEditor.Markdown source={messages} style={{ padding: '50px', borderRadius: '20px' }} />
+                        </div>
+                        <ReadmeEditor value={messages} setValue={setMessages} extraCommands={[]} style={{ padding: '50px' }} />
+                    </>}
+
+
                 </div>
             </div>
 

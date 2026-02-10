@@ -11,3 +11,11 @@ export const ignorePatterns = [
   // optional: ignore ONLY root README.md
   /README\.md$/,
 ];
+
+export function repoToCollectionName(repoUrl: string) {
+  return repoUrl
+    .replace("https://github.com/", "")
+    .replaceAll("/", "_")
+    .replaceAll("-", "_")
+    .toLowerCase();
+}

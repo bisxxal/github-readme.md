@@ -1,5 +1,4 @@
 'use server'
-
 import { QdrantClient } from "@qdrant/js-client-rest";
 import { OpenAIEmbeddings } from "@langchain/openai";
 import { QdrantVectorStore } from "@langchain/qdrant";
@@ -7,7 +6,7 @@ import { RecursiveCharacterTextSplitter } from "@langchain/textsplitters";
 import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 import { GithubRepoLoader } from "@langchain/community/document_loaders/web/github";
-import { ignorePatterns } from "@/lib/util";
+import { ignorePatterns, repoToCollectionName } from "@/lib/util";
 
 const emmbeddings = new OpenAIEmbeddings({
     model: "text-embedding-3-small",
@@ -30,8 +29,6 @@ export const generateEmbeddings = async (url: string ) => {
     if (!url  ) {
         return "Invalid parameters"
     }
-    
-    const userId = session?.user.id!;
  
     const loader = new GithubRepoLoader(
         url, {
@@ -55,26 +52,19 @@ export const generateEmbeddings = async (url: string ) => {
 
     const splitDocs = await splitter.splitDocuments(docs);
 
+    const collectionName = repoToCollectionName(url);
+
     const vectorStore = await QdrantVectorStore.fromDocuments(
         splitDocs,
         emmbeddings,
         {
             client: qclient,
-            collectionName: url,
+            collectionName: collectionName,
         }
-    );
-
-    //  const res = await prisma.models.create({
-    //         data: {
-    //             collection_name,
-    //             userId,
-    //             // name: name ? name : "Untitled"
-    //         }
-    //     })
-
-    // return JSON.parse(JSON.stringify(res));
+    ); 
 
     if (vectorStore) {
+
         return "success";
     } else {
         return "failed";
