@@ -18,6 +18,9 @@ const Idpage = () => {
     const repo = path.split("/")[2];
     const giturl = `https://github.com${path}`
 
+
+      
+
     const createCollections = useMutation({
         mutationFn: async () => {
             return await generateEmbeddings(giturl);
@@ -53,20 +56,28 @@ const Idpage = () => {
         }
     }
 
+    const collectionForm = async ( ) => {
+       createCollections.mutate()
+    }
+    
+
     return (
-        <div className=' w-full bg-[#1c1b21] text-white min-h-screen px-10'>
+        <div className=' w-full bg-[#0E1117] text-white min-h-screen px-10'>
 
             <div className=' w-full pt-5 h-screen justify-between gap-10 center '>
                 <Repofront owner={owner} repo={repo} />
 
-                <div className='center flex-col border h-[95%] rounded-3xl overflow-hidden w-full border-black'>
+                <div className='center flex-col border border-white h-[95%] rounded-3xl overflow-hidden w-full '>
 
                     {/* Button div */}
                     <div>
-                        <form>
+                        <form action={collectionForm}>
                             <div className="card  mb-6 p-4  py-5 rounded-3xl flex flex-col placeholder:text-gray-50">
-                                <button onClick={() => createCollections.mutate()} disabled={createCollections.isPending} className="buttonbg disabled:opacity-20 px-4 py-2 rounded text-white">Create collections</button>
+                                <button type='submit' disabled={createCollections.isPending} className="buttonbg disabled:opacity-20 px-4 py-2 rounded text-white">Create collections</button>
                             </div>
+                            {
+                                createCollections.isPending && <Loading parent="w-full h-20" child="rounded-2xl w-full h-full" boxes={1} /> 
+                            }
                         </form>
 
                         <div>

@@ -6,16 +6,76 @@ export const ignorePatterns = [
   /tests?/,
   /\.github/,
   /\.vscode/,
+  /coverage/,
+  /\.next/,
+  /\.turbo/,
+  /\.git/,
   /yarn\.lock/,
   /package-lock\.json/,
-  // optional: ignore ONLY root README.md
+  /pnpm-lock\.yaml/,
   /README\.md$/,
 ];
+export const allowedExtensions = [
+  // JS / TS
+  /\.js$/, /\.jsx$/, /\.ts$/, /\.tsx$/, /\.mjs$/, /\.cjs$/,
 
-export function repoToCollectionName(repoUrl: string) {
-  return repoUrl
+  // Python
+  /\.py$/,
+
+  // JVM
+  /\.java$/, /\.kt$/, /\.kts$/, /\.scala$/, /\.groovy$/,
+
+  // C / C++
+  /\.c$/, /\.cpp$/, /\.cc$/, /\.h$/, /\.hpp$/,
+
+  // C#
+  /\.cs$/,
+
+  // Go
+  /\.go$/,
+
+  // Rust
+  /\.rs$/,
+
+  // PHP
+  /\.php$/,
+
+  // Ruby
+  /\.rb$/,
+
+  // Swift
+  /\.swift$/,
+
+  // Dart
+  /\.dart$/,
+
+  // Shell
+  /\.sh$/, /\.bash$/, /\.zsh$/, /\.ps1$/,
+
+  // Web
+  /\.html$/, /\.css$/, /\.scss$/, /\.sass$/, /\.less$/,
+
+  // Docs
+  /\.md$/, /\.mdx$/,
+
+  // Config
+  /\.json$/, /\.yaml$/, /\.yml$/, /\.toml$/,
+];
+
+// export function repoToCollectionName(repoUrl: string) {
+//   return repoUrl
+//     .replace("https://github.com/", "")
+//     .replaceAll("/", "_")
+//     .replaceAll("-", "_")
+//     .toLowerCase();
+// }
+
+export function repoToCollectionName(url: string) {
+  const cleaned = url
     .replace("https://github.com/", "")
     .replaceAll("/", "_")
     .replaceAll("-", "_")
     .toLowerCase();
+
+  return cleaned.substring(0, 50); // prevent very long names
 }
