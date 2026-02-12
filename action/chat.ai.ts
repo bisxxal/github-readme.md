@@ -206,6 +206,6 @@ Now, using ONLY the information in the PROJECT CONTENT above, generate the final
     });
 
     const res = response.choices[0].message.content
-    console.log(res);
+    // console.log(res);
     return res;
 }

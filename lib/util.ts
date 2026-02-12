@@ -60,22 +60,23 @@ export const allowedExtensions = [
 
   // Config
   /\.json$/, /\.yaml$/, /\.yml$/, /\.toml$/,
-];
-
-// export function repoToCollectionName(repoUrl: string) {
-//   return repoUrl
-//     .replace("https://github.com/", "")
-//     .replaceAll("/", "_")
-//     .replaceAll("-", "_")
-//     .toLowerCase();
-// }
-
+]; 
 export function repoToCollectionName(url: string) {
   const cleaned = url
     .replace("https://github.com/", "")
     .replaceAll("/", "_")
     .replaceAll("-", "_")
     .toLowerCase();
-
-  return cleaned.substring(0, 50); // prevent very long names
+  return cleaned.substring(0, 50);  
 }
+
+export function shouldIncludeFile(path: string) {
+  if (!path) return false;
+
+  const ignored = ignorePatterns.some((pattern) => pattern.test(path));
+  if (ignored) return false;
+
+  const allowed = allowedExtensions.some((ext) => ext.test(path));
+  return allowed;
+}
+  

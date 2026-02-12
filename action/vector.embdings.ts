@@ -6,7 +6,7 @@ import { RecursiveCharacterTextSplitter } from "@langchain/textsplitters";
 import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 import { GithubRepoLoader } from "@langchain/community/document_loaders/web/github";
-import { allowedExtensions, ignorePatterns, repoToCollectionName } from "@/lib/util";
+import { repoToCollectionName, shouldIncludeFile } from "@/lib/util";
 
 const emmbeddings = new OpenAIEmbeddings({
     model: "text-embedding-3-small",
@@ -17,19 +17,8 @@ const qclient = new QdrantClient({
     // apiKey: process.env.QDRANT_API_KEY!,
     url: "http://localhost:6333",
 });
-
-function shouldIncludeFile(path: string) {
-  if (!path) return false;
-
-  const ignored = ignorePatterns.some((pattern) => pattern.test(path));
-  if (ignored) return false;
-
-  const allowed = allowedExtensions.some((ext) => ext.test(path));
-  return allowed;
-}
-
  
-
+  
 export const generateEmbeddings = async (url: string) => {
   const session = await getServerSession(authOptions);
 
@@ -69,8 +58,7 @@ export const generateEmbeddings = async (url: string) => {
     const splitDocs = await splitter.splitDocuments(docs);
 
     const collectionName = repoToCollectionName(url);
-
-    // Create or connect to collection
+ 
     const vectorStore = await QdrantVectorStore.fromExistingCollection(
       emmbeddings,
       {
@@ -83,10 +71,8 @@ export const generateEmbeddings = async (url: string) => {
         collectionName,
       });
     });
-
-    // =========================
+    
     // BATCH INSERT (FIX 32MB ERROR)
-    // =========================
     const BATCH_SIZE = 100;
 
     for (let i = 0; i < splitDocs.length; i += BATCH_SIZE) {

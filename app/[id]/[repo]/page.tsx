@@ -17,9 +17,9 @@ const Idpage = () => {
     const owner = path.split("/")[1];
     const repo = path.split("/")[2];
     const giturl = `https://github.com${path}`
-
-
-      
+    const [messages, setMessages] = useState()
+    const [isLoading, setIsLoading] = useState(false)
+    const [switcher, setSwitcher] = useState(false);
 
     const createCollections = useMutation({
         mutationFn: async () => {
@@ -39,10 +39,6 @@ const Idpage = () => {
 
     const collectionName = repoToCollectionName(giturl);
 
-    const [messages, setMessages] = useState()
-    const [isLoading, setIsLoading] = useState(false)
-
-
     const handleSend = async () => {
         setIsLoading(true)
         try {
@@ -56,43 +52,45 @@ const Idpage = () => {
         }
     }
 
-    const collectionForm = async ( ) => {
-       createCollections.mutate()
+    const collectionForm = async () => {
+        createCollections.mutate()
     }
-    
 
     return (
-        <div className=' w-full bg-[#0E1117] text-white min-h-screen px-10'>
+        <div className=' w-full bg-[#0E1117] text-white   h-screen px-10'>
 
-            <div className=' w-full pt-5 h-screen justify-between gap-10 center '>
+            <div className='w-full pt-5 flex-col center '>
+                <>
+                    <div className='flex justify-between items-center w-fit overflow-hidden border border-[#cba6f788] rounded-full mx-auto  '>
+                        <button onClick={() => setSwitcher(true)} className={`${switcher ? "   buttonbg " : "  "} rounded-l-4xl px-4 py-2 `}>Preview</button>
+                        <button onClick={() => setSwitcher(false)} className={`${switcher ? "  " : "buttonbg  "} rounded-r-4xl px-4 py-2 `}>Edit</button>
+                    </div>
+                </>
+            </div>
+
+            <div className=' w-full h-screen justify-between gap-10 center  '>
                 <Repofront owner={owner} repo={repo} />
+                <div className='center flex-col border border-[#ffffff4c] h-[95%] rounded-3xl overflow-hidden w-full '>
 
-                <div className='center flex-col border border-white h-[95%] rounded-3xl overflow-hidden w-full '>
-
-                    {/* Button div */}
-                    <div>
+                    {!messages && <div className=' center  '>
                         <form action={collectionForm}>
-                            <div className="card  mb-6 p-4  py-5 rounded-3xl flex flex-col placeholder:text-gray-50">
+                            <div className="card   p-4  py-5 rounded-3xl flex flex-col placeholder:text-gray-50">
                                 <button type='submit' disabled={createCollections.isPending} className="buttonbg disabled:opacity-20 px-4 py-2 rounded text-white">Create collections</button>
                             </div>
                             {
-                                createCollections.isPending && <Loading parent="w-full h-20" child="rounded-2xl w-full h-full" boxes={1} /> 
+                                createCollections.isPending && <Loading parent="w-full h-20" child="rounded-2xl w-full h-full" boxes={1} />
                             }
                         </form>
+                        <button onClick={() => handleSend()} className='buttonbg p-2'>Generate readme</button>
+                    </div>}
 
-                        <div>
-                            {isLoading && <Loading boxes={1} child='w-full h-full !rounded-2xl' parent='w-[1500px] h-[200px] ' />}
-                            <button onClick={() => handleSend()} className='buttonbg p-2'>Generate readme</button>
-                        </div>
+                    {isLoading && <Loading boxes={1} child='w-full h-full !rounded-2xl' parent='w-full h-full ' />}
 
+                    {switcher ? <div className=" w-full h-screen overflow-scroll">
+                        <MDEditor.Markdown source={messages} style={{ padding: '50px', borderRadius: '20px' }} />
                     </div>
-
-                    {<>
-                        <div className=" w-full h-screen overflow-scroll">
-                            <MDEditor.Markdown source={messages} style={{ padding: '50px', borderRadius: '20px' }} />
-                        </div>
-                        <ReadmeEditor value={messages} setValue={setMessages} extraCommands={[]} style={{ padding: '50px' }} />
-                    </>}
+                        : <ReadmeEditor value={messages} setValue={setMessages} />
+                    }
 
 
                 </div>

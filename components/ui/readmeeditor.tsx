@@ -66,10 +66,12 @@ const customButton = {
 
 export default function ReadmeEditor({value, setValue}: {value: string, setValue: (value: string) => void}) {
   return (
-    <div className="container">
+    <div className=" w-full h-[1000px] overflow-scroll">
       <MDEditor
         value={value}
         preview="edit"
+        minHeight={1500}
+        style={{ height: '900px' }}
         extraCommands={[codePreview, customButton, commands.fullscreen]}
         onChange={(val) => setValue(val)}
       />

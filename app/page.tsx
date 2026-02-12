@@ -1,5 +1,6 @@
 'use client';
 import { Sparkles, Terminal } from 'lucide-react';
+import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 
 export default function LandingPage() {
@@ -158,10 +159,10 @@ export default function LandingPage() {
             in seconds.
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
-            <button className="flex items-center gap-2 bg-white text-black px-8 py-4 rounded-full font-bold hover:bg-gray-200 transition-all transform hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+            <Link href={'/sign-in'} className="flex items-center gap-2 bg-white text-black px-8 py-4 rounded-full font-bold hover:bg-gray-200 transition-all transform hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(255,255,255,0.3)]">
               <Sparkles size={20} />
               Generate Now
-            </button>
+            </Link>
 
             <button className="group px-8 py-4 rounded-full font-bold text-lg border-2 border-[#30363d] bg-transparent text-[#c9d1d9] hover:border-[#58a6ff] hover:bg-[#58a6ff]/10 transition-all duration-300 hover:scale-105">
               <span className="flex items-center gap-2">
