@@ -110,3 +110,11 @@ textarea {
   @apply text-white px-4 py-2 transition-all duration-500 rounded-full font-medium bg-gradient-to-br  from-pink-600  to-red-500;
   box-shadow: inset -12px -3px 20px 2px #00000021, 0 8px 10px -6px rgb(0 0 0 / 0.1) ;
 }
+
+.w-md-editor-text {
+  height: 100% !important;
+}
+
+.w-md-editor {
+  height: 100% !important;
+}

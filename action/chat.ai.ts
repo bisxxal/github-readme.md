@@ -23,7 +23,7 @@ export const chatAIAction = async (  collection: string ) => {
         return "Invalid parameters"
     }
 
-    const userQuary = "generate me a README.md for this repo"
+    const userQuary = "generate me a README.md for this repo and also add emoji"
 
     console.log(collection);
 

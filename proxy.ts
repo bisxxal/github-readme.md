@@ -8,7 +8,7 @@ export default withAuth( async function proxy(req: NextRequest) {
     const { nextUrl } = req;
     const token = await getToken({ req })
     if (token && nextUrl.pathname === "/") {
-      return NextResponse.redirect(new URL("/docs", req.url));
+      return NextResponse.redirect(new URL("/home", req.url));
     }
     return NextResponse.next()
   },

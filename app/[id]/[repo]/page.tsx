@@ -19,7 +19,7 @@ const Idpage = () => {
     const giturl = `https://github.com${path}`
     const [messages, setMessages] = useState()
     const [isLoading, setIsLoading] = useState(false)
-    const [switcher, setSwitcher] = useState(false);
+    const [switcher, setSwitcher] = useState(true);
 
     const createCollections = useMutation({
         mutationFn: async () => {
@@ -57,22 +57,22 @@ const Idpage = () => {
     }
 
     return (
-        <div className=' w-full bg-[#0E1117] text-white   h-screen px-10'>
+        <div className=' w-full bg-[#0E1117] text-white   min-h-screen px-10'>
 
             <div className='w-full pt-5 flex-col center '>
-                <>
-                    <div className='flex justify-between items-center w-fit overflow-hidden border border-[#cba6f788] rounded-full mx-auto  '>
-                        <button onClick={() => setSwitcher(true)} className={`${switcher ? "   buttonbg " : "  "} rounded-l-4xl px-4 py-2 `}>Preview</button>
-                        <button onClick={() => setSwitcher(false)} className={`${switcher ? "  " : "buttonbg  "} rounded-r-4xl px-4 py-2 `}>Edit</button>
-                    </div>
-                </>
+                {messages && <div className='flex justify-between items-center w-fit overflow-hidden border border-[#cba6f788] rounded-full mx-auto  '>
+                    <button onClick={() => setSwitcher(true)} className={`${switcher ? "   buttonbg " : "  "} rounded-l-4xl px-4 py-2 `}>Preview</button>
+                    <button onClick={() => setSwitcher(false)} className={`${switcher ? "  " : "buttonbg  "} rounded-r-4xl px-4 py-2 `}>Edit</button>
+                </div>}
             </div>
 
             <div className=' w-full h-screen justify-between gap-10 center  '>
                 <Repofront owner={owner} repo={repo} />
-                <div className='center flex-col border border-[#ffffff4c] h-[95%] rounded-3xl overflow-hidden w-full '>
 
-                    {!messages && <div className=' center  '>
+                {/* // Other side */}
+                <div className='center justify-center flex-col border border-[#ffffff4c] h-[95%] rounded-3xl  w-full '>
+
+                    {!messages && !isLoading && <div className=' center '>
                         <form action={collectionForm}>
                             <div className="card   p-4  py-5 rounded-3xl flex flex-col placeholder:text-gray-50">
                                 <button type='submit' disabled={createCollections.isPending} className="buttonbg disabled:opacity-20 px-4 py-2 rounded text-white">Create collections</button>
@@ -84,15 +84,13 @@ const Idpage = () => {
                         <button onClick={() => handleSend()} className='buttonbg p-2'>Generate readme</button>
                     </div>}
 
-                    {isLoading && <Loading boxes={1} child='w-full h-full !rounded-2xl' parent='w-full h-full ' />}
-
-                    {switcher ? <div className=" w-full h-screen overflow-scroll">
+                    {switcher ? messages && <div className=" w-full h-full overflow-scroll">
                         <MDEditor.Markdown source={messages} style={{ padding: '50px', borderRadius: '20px' }} />
                     </div>
                         : <ReadmeEditor value={messages} setValue={setMessages} />
                     }
 
-
+                    {isLoading && <Loading boxes={1} child='w-full h-full !rounded-2xl' parent=' w-full h-full ' />}
                 </div>
             </div>
 
