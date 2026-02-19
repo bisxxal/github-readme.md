@@ -21,7 +21,7 @@ export default function GitReadmeLanding() {
   }, []);
 
   return (
-    <div className="min-h-screen   relative">
+    <div className="min-h-screen bg-[#0a0a0a] text-white relative">
       {/* Animated gradient background */}
       <div 
         className="fixed inset-0 opacity-30 pointer-events-none"
@@ -53,9 +53,9 @@ export default function GitReadmeLanding() {
           
           <div className={`flex items-center gap-6 transition-all duration-700 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`}>
             <a href="#features" className="text-sm text-gray-400 hover:text-white transition-colors duration-200">Features</a>
-            <Link href={`/sign-in`} className="px-5 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full text-sm font-medium transition-all duration-200 hover:scale-105">
+            <button className="px-5 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-sm font-medium transition-all duration-200 hover:scale-105">
               Sign In
-            </Link>
+            </button>
           </div>
         </div>
       </nav>
@@ -84,20 +84,22 @@ export default function GitReadmeLanding() {
             </h1>
 
             {/* Subtitle */}
-            <p className={`text-sm md:text-sm text-gray-400 max-w-2xl mb-12 leading-relaxed transition-all duration-700 delay-400 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+            <p className={`text-lg md:text-xl text-gray-400 max-w-2xl mb-12 leading-relaxed transition-all duration-700 delay-400 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
               Transform your GitHub repositories with stunning, professional README files. 
               No design skills required. Just smart automation and beautiful templates.
             </p>
 
             {/* CTA Buttons */}
             <div className={`flex flex-col sm:flex-row gap-4 mb-20 transition-all duration-700 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-              <Link href={`/sign-in`} className="group px-8 py-4 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full text-base font-semibold shadow-lg shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/40 transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2">
+              <Link href={`/sign-in`} className="group px-8 py-4 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-xl text-base font-semibold shadow-lg shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/40 transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2">
                 Generate README
                 <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
               </Link>
-             
+              <button className="px-8 py-4 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl text-base font-medium transition-all duration-300 hover:scale-105">
+                View Examples
+              </button>
             </div>
 
             {/* Preview Window */}
@@ -107,7 +109,7 @@ export default function GitReadmeLanding() {
                 <div className="absolute -inset-1 bg-gradient-to-r from-blue-500/50 to-cyan-400/50 rounded-2xl blur-2xl opacity-30 group-hover:opacity-50 transition-opacity duration-500"></div>
                 
                 {/* Terminal Window */}
-                <div className="relative bg-[#1a1a1ab7] backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden shadow-2xl">
+                <div className="relative bg-[#1a1a1a] border border-white/10 rounded-2xl overflow-hidden shadow-2xl">
                   {/* Terminal Header */}
                   <div className="bg-[#0f0f0f] border-b border-white/5 px-4 py-3 flex items-center gap-2">
                     <div className="flex gap-2">
@@ -238,7 +240,7 @@ export default function GitReadmeLanding() {
               <p className="text-gray-400 mb-8 text-lg">
                 Join thousands of developers creating stunning documentation
               </p>
-              <Link href={`/sign-in`} className="px-10 py-4 bg-gradient-to-r from-blue-500 to-cyan-600 rounded-full text-lg font-semibold shadow-lg shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/40 transition-all duration-300 hover:scale-105">
+              <Link href={`/sign-in`} className="px-10 py-4 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-xl text-lg font-semibold shadow-lg shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/40 transition-all duration-300 hover:scale-105">
                 Get Started Free
               </Link>
             </div>
@@ -318,8 +320,8 @@ const DemoSection = () => (
           <div className="font-mono text-sm space-y-4">
             {/* Header */}
             <div>
-              <h1 className="text-2xl font-bold text-white mb-2">🚀 Github Repo Readme</h1>
-              <p className="text-slate-400"> GitHub Readme file generater </p>
+              <h1 className="text-2xl font-bold text-white mb-2">🚀 Nexus API</h1>
+              <p className="text-slate-400">High-performance scalable gateway service built with Go and gRPC.</p>
             </div>
             
             {/* Badges */}
@@ -340,7 +342,7 @@ const DemoSection = () => (
                 <div className="w-3 h-3 rounded-full bg-green-500/20"></div>
               </div>
               <code className="text-xs text-blue-300">
-                <span className="text-purple-400">$</span> git clone https://github.com/bisxxal/githubreadme<br/>
+                <span className="text-purple-400">$</span> git clone https://github.com/user/nexus-api<br/>
                 <span className="text-purple-400">$</span> cd nexus-api<br/>
                 <span className="text-purple-400">$</span> make run
               </code>

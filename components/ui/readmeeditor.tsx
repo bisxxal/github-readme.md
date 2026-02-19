@@ -9,13 +9,13 @@ export default function ReadmeEditor({
   setValue: (value: string) => void;
 }) {
   return (
-    <div className="w-full p-10 border-none !h-full ">
+    <div className="w-full pb-16  h-full ">
       <MDEditor
         value={value}
         onChange={(val) => setValue(val || "")}
         preview="edit"
         hideToolbar={true}
-        style={{padding:'10px' , border:'0px', borderRadius:'10px' , height: '100%' }}
+        style={{padding:'40px' , border:'0px', outline:'0px' , borderColor:'transparent', borderRadius:'10px' , backgroundColor:'transparent' , height: '100%' }}
         height="100%"
         data-color-mode="dark"
       />

@@ -29,7 +29,6 @@ export default function ChatbotPage() {
   return (
     <div className="flex flex-col h-screen min-h-screen  backdrop-blur-[10px] text-white rounded-lg shadow-lg p-4">
 
-      
       <div className=" w-full h-screen overflow-scroll">
         <MDEditor.Markdown source={messages} height={500}style={{padding:'50px'}} />
       </div>

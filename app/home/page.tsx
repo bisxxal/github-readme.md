@@ -37,20 +37,18 @@ function DashBoardPage() {
     };
 
     return (
-        <div className=" w-full px-10">
-            <h1 className=" text-center text-gray-600 font-bold text-4xl my-5">Dashboard</h1>
-            <h2 className=" text-xl font-semibold">Upload Context</h2>
+        <div className=" h-screen w-full px-10 center ">
 
-            <form action={submitForm}>
-                <div className="card  mb-6 p-4  py-5 rounded-3xl flex flex-col placeholder:text-gray-50">
-                    <h2 className="text-2xl text-gray-700 font-bold mb-4">Add github link</h2>
+            <form className=" w-full " action={submitForm}>
+                <div className="w-2/3 mx-auto center mb-6 p-4  py-5 rounded-3xl flex flex-col placeholder:text-gray-50">
+                    <h2 className="text-2xl uppercase font-bold mb-4">Add github Repo</h2>
                     <input
                         type="text"
                         name="github"
                         placeholder="https://github.com/bisxxal"
-                        className="w-full p-2 mb-4 border-2 bordercolor outline-none placeholder:text-amber-900/30 !rounded-xl"
+                        className="w-full p-2 mb-4 border-2 border-[#3558d59f] outline-none placeholder:text-gray-500 !rounded-xl"
                     />
-                    <button type="submit" className="buttonbg disabled:opacity-20 px-4 py-2 rounded text-white">Submit</button>
+                    <button type="submit" className="buttonbg disabled:opacity-20 px-4 py-2 rounded w-full text-white">GO</button>
                 </div>
             </form>
 

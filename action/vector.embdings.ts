@@ -12,9 +12,7 @@ const emmbeddings = new OpenAIEmbeddings({
     model: "text-embedding-3-small",
     apiKey: process.env.OPENAI_API_KEY,
 });
-const qclient = new QdrantClient({
-    // url: process.env.QDRANT_URL!,
-    // apiKey: process.env.QDRANT_API_KEY!,
+const qclient = new QdrantClient({ 
     url: "http://localhost:6333",
 });
  
@@ -137,6 +135,4 @@ export const generateEmbeddings = async (url: string) => {
 //     } else {
 //         return "failed";
 //     }
-
 // }
- 

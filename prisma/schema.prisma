@@ -23,14 +23,15 @@ model User {
 model models{
   id          String   @id @default(cuid())
   collection_name  String?
-  source String?
+  
   times    Int? @default(0)
-  created_at  DateTime @default(now())
-  updated_at  DateTime @updatedAt
-  type       String? @default("bot")
-  name   String?
+
+
   userId String? 
   user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
 
   @@index([id, userId])
 }
