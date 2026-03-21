@@ -1,4 +1,3 @@
-
 'use client';
 
 import { Copy, Zap } from 'lucide-react';
@@ -11,27 +10,33 @@ export default function GitReadmeLanding() {
 
   useEffect(() => {
     setIsVisible(true);
-    
+
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
-    
+
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
   return (
     <div className="min-h-screen   relative">
+
+      <div className='max-md:-top-72 absolute py-10 -top-52 w-[70%] left-[18%] blur-3xl right-0 h-[500px]  pointer-events-none '> 
+        <div className=' upper-gradient  rounded-full  w-full  h-[500px]'>
+
+        </div>
+      </div>
       {/* Animated gradient background */}
-      <div 
+      <div
         className="fixed inset-0 opacity-30 pointer-events-none"
         style={{
           background: `radial-gradient(600px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(59, 130, 246, 0.15), transparent 40%)`
         }}
       />
-      
+
       {/* Grid pattern overlay */}
-      <div className="fixed inset-0 opacity-[0.03] pointer-events-none"
+      <div className="fixed  inset-0 opacity-[0.03] pointer-events-none"
         style={{
           backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
                            linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
@@ -40,17 +45,17 @@ export default function GitReadmeLanding() {
       />
 
       {/* Navigation */}
-      <nav className="relative z-10 px-6 py-6 md:px-12 md:py-8">
+      <nav className="fixed bg-[#00000022] backdrop-blur-2xl w-full  z-[100] px-6 py-6 md:px-12 md:py-4">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className={`flex items-center gap-3 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`}>
-            <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-lg flex items-center justify-center font-mono text-sm font-bold shadow-lg shadow-blue-500/20">
+            <div className="w-10 h-10 bg-gradient-to-br from-blue-800 to-indigo-400  rounded-lg flex items-center justify-center font-mono text-sm font-bold shadow-lg shadow-blue-500/20">
               .md
             </div>
             <span className="text-xl font-bold tracking-tight bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
               gitreadme.md
             </span>
           </div>
-          
+
           <div className={`flex items-center gap-6 transition-all duration-700 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`}>
             <a href="#features" className="text-sm text-gray-400 hover:text-white transition-colors duration-200">Features</a>
             <Link href={`/sign-in`} className="px-5 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full text-sm font-medium transition-all duration-200 hover:scale-105">
@@ -64,50 +69,44 @@ export default function GitReadmeLanding() {
       <main className="relative z-10 px-6 md:px-12">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col items-center text-center pt-20 md:pt-32 pb-20">
-            {/* Badge */}
-            <div className={`mb-8 transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-              <span className="px-4 py-2 bg-blue-500/10 border border-blue-500/20 rounded-full text-xs font-medium text-blue-400 inline-flex items-center gap-2">
-                <span className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse"></span>
-                Professional README Generator
-              </span>
-            </div>
+           
 
             {/* Main Heading */}
-            <h1 className={`text-5xl md:text-7xl lg:text-8xl font-bold mb-6 tracking-tight transition-all duration-700 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-              <span className="bg-gradient-to-br from-[white] via-gray-300 to-gray-800 bg-clip-text text-transparent">
-                Beautiful READMEs
-              </span>
+            <h1 className={`  text-5xl max-md:text-5xl max-md:mt-24 lg:text-8xl font-bold mb-6 tracking-tight transition-all duration-700 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+              <p className="bg-gradient-to-br flex max-md:flex-col items-center max-md:-mb-6 -mb-20 from-[white] via-gray-300 to-gray-800 bg-clip-text text-transparent">
+                Damn !! <span className=' rotate-x-15 hover:-rotate-x-15 -rotate-y-30 shadow-xl shadow-[white]  buttonbg  px-2 !rounded-lg '> README </span> 
+              </p>
               <br />
-              <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-blue-400 via-indigo-400 to-blue-500 bg-clip-text text-transparent">
                 In Seconds
               </span>
             </h1>
 
             {/* Subtitle */}
-            <p className={`text-sm md:text-sm text-gray-400 max-w-2xl mb-12 leading-relaxed transition-all duration-700 delay-400 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-              Transform your GitHub repositories with stunning, professional README files. 
+            <p className={`text-sm md:text-xs text-gray-400 max-w-4xl mb-12 leading-relaxed transition-all duration-700 delay-400 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+              Transform your GitHub repositories with stunning, professional README files.
               No design skills required. Just smart automation and beautiful templates.
             </p>
 
             {/* CTA Buttons */}
             <div className={`flex flex-col sm:flex-row gap-4 mb-20 transition-all duration-700 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-              <Link href={`/sign-in`} className="group px-8 py-4 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full text-base font-semibold shadow-lg shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/40 transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2">
+              <Link href={`/sign-in`} className="group px-8 py-4 bg-gradient-to-r from-blue-800 to-indigo-400   rounded-full text-base font-semibold shadow-lg shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/40 transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2">
                 Generate README
                 <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
               </Link>
-             
+
             </div>
 
             {/* Preview Window */}
             <div className={`w-full max-w-5xl transition-all duration-1000 delay-600 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
               <div className="relative group">
                 {/* Glow effect */}
-                <div className="absolute -inset-1 bg-gradient-to-r from-blue-500/50 to-cyan-400/50 rounded-2xl blur-2xl opacity-30 group-hover:opacity-50 transition-opacity duration-500"></div>
-                
+                <div className="absolute -inset-1 bg-gradient-to-r from-blue-100/50 to-cyan-100/50 rounded-2xl blur-2xl opacity-30 group-hover:opacity-50 transition-opacity duration-500"></div>
+
                 {/* Terminal Window */}
-                <div className="relative bg-[#1a1a1ab7] backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden shadow-2xl">
+                <div className="relative bg-[#1a1a1acf] -mt-10 hover:scale-105 transition-all duration-500 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden shadow-2xl">
                   {/* Terminal Header */}
                   <div className="bg-[#0f0f0f] border-b border-white/5 px-4 py-3 flex items-center gap-2">
                     <div className="flex gap-2">
@@ -117,9 +116,9 @@ export default function GitReadmeLanding() {
                     </div>
                     <span className="ml-4 text-xs text-gray-500 font-mono">README.md</span>
                   </div>
-                  
+
                   {/* Terminal Content */}
-                  <div className="p-8 font-mono text-sm">
+                  <div className="p-8  font-mono text-sm">
                     <div className="space-y-4">
                       <div className="flex items-start gap-3">
                         <span className="text-gray-600 select-none">1</span>
@@ -216,7 +215,7 @@ export default function GitReadmeLanding() {
               ].map((feature, index) => (
                 <div
                   key={index}
-                  className="group p-6 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl transition-all duration-300 hover:scale-105 hover:border-blue-500/30"
+                  className="group p-6 bg-white/5 hover:bg-white/10 border border-white/10 rounded-3xl transition-all duration-300 hover:scale-105 hover:border-blue-500/30"
                   style={{
                     animation: isVisible ? `fadeInUp 0.6s ease-out ${0.7 + index * 0.1}s both` : 'none'
                   }}
@@ -228,17 +227,18 @@ export default function GitReadmeLanding() {
               ))}
             </div>
           </div>
-<DemoSection/>
-          {/* CTA Section */}
+          <DemoSection />
+         
+
           <div className="py-20 text-center">
-            <div className="max-w-3xl mx-auto p-12 bg-gradient-to-br from-blue-500/10 to-cyan-400/10 border border-blue-500/20 rounded-2xl">
-              <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+            <div className="max-w-3xl mx-auto p-12  rounded-2xl">
+              <h2 className="text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
                 Ready to elevate your repos?
               </h2>
-              <p className="text-gray-400 mb-8 text-lg">
+              <p className="text-gray-400 max-md:text-sm mb-8 text-lg">
                 Join thousands of developers creating stunning documentation
               </p>
-              <Link href={`/sign-in`} className="px-10 py-4 bg-gradient-to-r from-blue-500 to-cyan-600 rounded-full text-lg font-semibold shadow-lg shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/40 transition-all duration-300 hover:scale-105">
+              <Link href={`/sign-in`} className="px-10 py-4 bg-gradient-to-r from-blue-800 to-indigo-400   rounded-full text-lg font-semibold shadow-lg shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/40 transition-all duration-300 hover:scale-105">
                 Get Started Free
               </Link>
             </div>
@@ -251,16 +251,14 @@ export default function GitReadmeLanding() {
         <div className="max-w-7xl mx-auto px-6 md:px-12 py-12">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-lg flex items-center justify-center font-mono text-xs font-bold">
+              <div className="w-8 h-8 bg-gradient-to-br from-blue-800 to-indigo-400   rounded-lg flex items-center justify-center font-mono text-xs font-bold">
                 .md
               </div>
-              <span className="text-sm text-gray-400">© 2024 gitreadme.md</span>
+              <span className="text-sm text-gray-400">© 2026 gitreadme.md</span>
             </div>
             <div className="flex gap-8 text-sm text-gray-400">
-              <a href="#" className="hover:text-white transition-colors">Privacy</a>
-              <a href="#" className="hover:text-white transition-colors">Terms</a>
-              <a href="#" className="hover:text-white transition-colors">Documentation</a>
-              <a href="#" className="hover:text-white transition-colors">GitHub</a>
+             
+              <a href="https://github.com/bisxxal" target='_blank' className="hover:text-white transition-colors">GitHub</a>
             </div>
           </div>
         </div>
@@ -283,7 +281,7 @@ export default function GitReadmeLanding() {
 }
 
 const DemoSection = () => (
-  <section className="py-24 border-y rounded-2xl mx-10 border-slate-800 bg-slate-950/50">
+  <section className="py-24 border-y rounded-2xl mx-10 max-md:mx-0 border-slate-800 bg-slate-950/50">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="flex flex-col md:flex-row items-center justify-between mb-12">
         <div>
@@ -310,18 +308,18 @@ const DemoSection = () => (
 
         {/* After */}
         <div className="rounded-xl border border-green-500/30 bg-slate-900 p-6 relative shadow-2xl">
-          <div className="absolute -top-[1px] -left-[1px] -right-[1px] h-1 bg-gradient-to-r from-green-500 to-blue-500"></div>
-          <div className="absolute top-4 right-4 text-xs font-bold text-green-400 bg-green-900/20 px-2 py-1 rounded border border-green-900/50 flex items-center gap-1">
-             <Zap className="w-3 h-3" /> GENERATED
+          <div className="absolute -top-[1px] -left-[1px] -right-[1px] h-1  "></div>
+          <div className="absolute top-4 right-4   text-xs font-bold text-green-400 bg-green-900/20 px-2 py-1 rounded border border-green-900/50 flex items-center gap-1">
+            <Zap className="w-3 h-3" /> GENERATED
           </div>
-          
-          <div className="font-mono text-sm space-y-4">
+
+          <div className="font-mono max-md:mt-10 text-sm space-y-4">
             {/* Header */}
             <div>
               <h1 className="text-2xl font-bold text-white mb-2">🚀 Github Repo Readme</h1>
               <p className="text-slate-400"> GitHub Readme file generater </p>
             </div>
-            
+
             {/* Badges */}
             <div className="flex flex-wrap gap-2">
               <span className="px-2 py-0.5 bg-[#00ADD8]/20 text-[#00ADD8] rounded text-xs border border-[#00ADD8]/30">Go 1.21</span>
@@ -340,8 +338,8 @@ const DemoSection = () => (
                 <div className="w-3 h-3 rounded-full bg-green-500/20"></div>
               </div>
               <code className="text-xs text-blue-300">
-                <span className="text-purple-400">$</span> git clone https://github.com/bisxxal/githubreadme<br/>
-                <span className="text-purple-400">$</span> cd nexus-api<br/>
+                <span className="text-purple-400">$</span> git clone https://github.com/bisxxal/githubreadme<br />
+                <span className="text-purple-400">$</span> cd nexus-api<br />
                 <span className="text-purple-400">$</span> make run
               </code>
             </div>

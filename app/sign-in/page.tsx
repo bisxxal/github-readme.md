@@ -17,8 +17,8 @@ const SignInPage = () => {
 
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         {/* Floating Orbs */}
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-amber-500/20 to-red-500/20 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute top-3/4 right-1/4 w-80 h-80 bg-gradient-to-r from-indigo-500/20 to-purple-400/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-indigo-500/20 to-purple-400/20 rounded-full blur-3xl animate-pulse"></div>
+        {/* <div className="absolute top-3/4 right-1/4 w-80 h-80 bg-gradient-to-r from-indigo-500/20 to-purple-400/20 rounded-full blur-3xl animate-pulse delay-1000"></div> */}
 
       </div>
 
@@ -40,13 +40,13 @@ const SignInPage = () => {
               </Link>
             </div>
             <h1 className="text-3xl font-bold text-white mb-2">Welcome Back!</h1>
-            <p className="text-red-400">Sign in to your README.MD account</p>
+            <p className="text-indigo-500 ">Sign in to your README.MD account</p>
           </div>
 
           {/* Sign In Card */}
-          <div className="  bg-gradient-to-r from-amber-500/20 to-red-500/20  rounded-2xl border border-amber-500 p-8 shadow-2xl">
+          <div className="  bg-gradient-to-r from-indigo-500/20 to-blue-700/20  rounded-2xl border border-indigo-400/40 p-8 shadow-2xl">
             <div className="text-center mb-6">
-              <h2 className="text-xl font-semibold text-amber-500 mb-2">Sign in with Google</h2>
+              <h2 className="text-xl font-semibold text-blue-300 mb-2">Sign in with Google</h2>
               <p className="text-gray-400 text-sm">Access your dashboard securely</p>
             </div>
 
@@ -82,9 +82,9 @@ const SignInPage = () => {
             </button>
 
             {/* Security Note */}
-            <div className="mt-6 p-4 bg-gradient-to-r from-amber-500   to-red-500  bg-opacity-10 border border-purple-500 border-opacity-30 rounded-xl">
+            <div className="mt-6 p-4 bg-gradient-to-tr from-indigo-500/20 to-purple-400/20  bg-opacity-10 border border-purple-900 border-opacity-30 rounded-xl">
               <div className="flex items-start">
-                <Shield className="w-5 h-5 text-red-400 mr-3 mt-0.5 flex-shrink-0" />
+                <Shield className="w-5 h-5 text-blue-400 mr-3 mt-0.5 flex-shrink-0" />
                 <div>
                   <p className="text-sm text-red-100 font-medium mb-1">Secure Authentication</p>
                   <p className="text-xs text-gray-200">We use Google OAuth 2.0 for secure access. Your Google password is never shared with us.</p>

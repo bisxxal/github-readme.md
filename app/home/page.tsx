@@ -6,12 +6,10 @@ function DashBoardPage() {
     const router = useRouter();
     const submitForm = async (formData: FormData) => {
         const url = formData.get("github") as string;
-
         if (!url) {
             toastError("Please enter a GitHub URL");
             return;
         }
-
         try {
             const parsedUrl = new URL(url);
             if (parsedUrl.hostname !== "github.com") {
@@ -45,10 +43,10 @@ function DashBoardPage() {
                     <input
                         type="text"
                         name="github"
-                        placeholder="https://github.com/bisxxal"
-                        className="w-full p-2 mb-4 border-2 border-[#3558d59f] outline-none placeholder:text-gray-500 !rounded-xl"
+                        placeholder="https://github.com/users/repo"
+                        className="w-full p-2 mb-4 border-2 border-[#89E900]/50 outline-none placeholder:text-gray-500 !rounded-xl"
                     />
-                    <button type="submit" className="buttonbg disabled:opacity-20 px-4 py-2 rounded w-full text-white">GO</button>
+                    <button type="submit" className="buttonbg disabled:opacity-20 px-4 py-2 !rounded-lg w-full text-white">GO</button>
                 </div>
             </form>
 

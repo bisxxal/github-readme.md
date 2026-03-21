@@ -7,6 +7,7 @@ import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 import { GithubRepoLoader } from "@langchain/community/document_loaders/web/github";
 import { repoToCollectionName, shouldIncludeFile } from "@/lib/util";
+import prisma from "@/lib/prisma";
 
 const emmbeddings = new OpenAIEmbeddings({
     model: "text-embedding-3-small",
@@ -16,18 +17,18 @@ const qclient = new QdrantClient({
     url: "http://localhost:6333",
 });
  
-  
 export const generateEmbeddings = async (url: string) => {
-  const session = await getServerSession(authOptions);
-
-  if (!session?.user?.id) {
-    return "Unauthorized";
-  }
-
+  
   if (!url) {
     return "Invalid URL";
   }
+  const session = await getServerSession(authOptions);
 
+
+  if (!session?.user?.id) {
+      return {status:400 , error:"Unauthorized: user not authenticated"};
+  }
+ 
   try {
     const loader = new GithubRepoLoader(url, {
       branch: "main",
@@ -77,8 +78,21 @@ export const generateEmbeddings = async (url: string) => {
       const batch = splitDocs.slice(i, i + BATCH_SIZE);
       await vectorStore.addDocuments(batch);
     }
+ 
 
-    return "success";
+    const res = await prisma.collections.create({
+      data:{
+        name: collectionName,
+        repoUrl: url,
+        userId: session.user.id,
+      }
+    })
+
+    if(!res){
+      return {status:400 , error:"Failed to create collection record in database"};
+    }
+    return {status:200 , data:res};
+
   } catch (err: any) {
     console.error("Embedding Error:", err.message);
     return "failed";

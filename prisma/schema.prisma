@@ -5,6 +5,7 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+  
 }
 
 model User {
@@ -16,19 +17,16 @@ model User {
   accounts      Account[]
   sessions      Session[]
   
-  models models[]
+  collections collections[]
   @@index([id])
 }
 
-model models{
+model collections{
   id          String   @id @default(cuid())
-  collection_name  String?
-  
-  times    Int? @default(0)
-
-
-  userId String? 
-  user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name  String
+  repoUrl String
+  userId String 
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   created_at  DateTime @default(now())
   updated_at  DateTime @updatedAt

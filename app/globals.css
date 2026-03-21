@@ -1,7 +1,5 @@
 @import "tailwindcss";
 
- 
-
 body {
     height: 100vh;
     width: 100%;
@@ -10,6 +8,12 @@ body {
     color: aliceblue;
 }
 
+.green{
+  background: #89E900;
+}
+.gray{
+  background: #222222;
+}
 .App {
     display: flex;
     width: 100%;
@@ -79,7 +83,7 @@ textarea {
 .buttonbg{
   cursor: pointer;
   box-shadow: inset -12px -7px 17px 11px #00000017, 0 8px 10px -6px #0000001a ;
-  @apply text-white px-4 py-2 transition-all  duration-500 rounded-full bg-gradient-to-tr  from-[#3333c2] to-[#7070e7] ;
+  @apply text-white px-4 py-2 transition-all  duration-500 rounded-full bg-gradient-to-br  from-[#92f509] to-[#4e8502] ;
 }
 .buttongreen{
   @apply text-white px-4 py-2 transition-all duration-500 rounded-full bg-gradient-to-br  from-[#07f733] font-medium to-[#02970e];
@@ -98,4 +102,8 @@ textarea {
 .w-md-editor {
   height: 100% !important;
   border: none !important;
+}
+
+.upper-gradient{ 
+background: radial-gradient(circle, #92a9ff -90%, #020015 100%);
 }

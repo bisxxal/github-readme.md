@@ -6,7 +6,8 @@ import type { NextRequest } from "next/server"
 export default withAuth( async function proxy(req: NextRequest) {
     // Allow access for authenticated users
     const { nextUrl } = req;
-    const token = await getToken({ req })
+    const token = await getToken({ req });
+ 
     if (token && nextUrl.pathname === "/") {
       return NextResponse.redirect(new URL("/home", req.url));
     }
@@ -29,6 +30,7 @@ export const config = {
     "/dashboard/:path*",
     "/profile/:path*",
     "/my-chatbot/:path*", 
+    "/:id/:repo"
   ],
 }
  
