@@ -25,7 +25,7 @@ const Idpage = () => {
 
     const collectionName = repoToCollectionName(giturl);
 
-    const { data, isLoading, error } = useQuery({
+    const { data  } = useQuery({
         queryKey: ['modelsinfo', collectionName],
         queryFn: async () => {
             return await fetchCollections(collectionName);

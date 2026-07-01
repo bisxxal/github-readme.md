@@ -28,7 +28,7 @@ const Repofront = ({ owner, repo }: { owner: string, repo: string }) => {
 
                         <div className='  bg-[#22222275] h-full border border-[#cba6f71e]  flex items-center flex-col rounded-3xl mb-4'>
                             <div className='w-full pt-3 flex-col center justify-center max-md:flex-row '>
-                            <Image height={200} width={200} src={data.owner.avatar_url} alt="avatar" className='w-32 h-32 max-md:w-20 max-md:h-20 mt-10 rounded-full' />
+                            <Image height={200} width={200} src={data?.owner?.avatar_url} alt="avatar" className='w-32 h-32 max-md:w-20 max-md:h-20 mt-10 rounded-full' />
 
                                 <div>
                                   <h2 className=' text-2xl font-bold text-center'>{data.owner?.login}</h2>
