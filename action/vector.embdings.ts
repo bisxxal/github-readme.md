@@ -17,12 +17,13 @@ const qclient = new QdrantClient({
     url: "http://localhost:6333",
 });
  
-export const generateEmbeddings = async (url: string) => {
+export const generateEmbeddings = async (url: string, accessToken?: string) => {
   
   if (!url) {
     return "Invalid URL";
   }
   const session = await getServerSession(authOptions);
+  const isPrivateScan = Boolean(accessToken);
 
 
   if (!session?.user?.id) {
@@ -30,12 +31,61 @@ export const generateEmbeddings = async (url: string) => {
   }
  
   try {
-    const loader = new GithubRepoLoader(url, {
-      branch: "main",
+    // JWT sessions can outlive a local database reset. Restore the matching
+    // adapter user before doing any expensive repository or vector work so a
+    // collection always has a valid foreign-key owner.
+    const user = await prisma.user.upsert({
+      where: { id: session.user.id },
+      update: {},
+      create: {
+        id: session.user.id,
+        name: session.user.name ?? null,
+        email: session.user.email ?? null,
+        image: session.user.image ?? null,
+      },
+    });
+
+    const parsedUrl = new URL(url);
+    if (parsedUrl.hostname !== "github.com") {
+      return { status: 400, error: "Please enter a github.com repository URL" };
+    }
+    const [owner, repo] = parsedUrl.pathname.replace(/^\/|\/$/g, "").split("/");
+    if (!owner || !repo) {
+      return { status: 400, error: "Please enter a complete GitHub repository URL" };
+    }
+
+    const githubToken = accessToken || process.env.GITHUB_TOKEN;
+    const repositoryResponse = await fetch(`https://api.github.com/repos/${owner}/${repo}`, {
+      headers: {
+        Accept: "application/vnd.github+json",
+        ...(githubToken ? { Authorization: `Bearer ${githubToken}` } : {}),
+      },
+    });
+    if (!repositoryResponse.ok) {
+      if (repositoryResponse.status === 404) {
+        return {
+          status: 404,
+          error: isPrivateScan
+            ? "GitHub could not access this repository. Check that your token has repository read access."
+            : "Repository not found. Confirm the GitHub URL or enable private repository access.",
+        };
+      }
+      return { status: repositoryResponse.status, error: "GitHub could not verify this repository. Please try again." };
+    }
+    const repository = await repositoryResponse.json() as { default_branch?: string };
+
+    const loaderOptions = {
+      // Repositories can use `main`, `master`, or any custom default branch.
+      branch: repository.default_branch || "main",
       recursive: true,
       maxConcurrency: 3,
-      accessToken: process.env.GITHUB_TOKEN,
-    });
+      // A token supplied for a private repository is used only for this request.
+      // It is never written to the database or included in the collection metadata.
+      ...(githubToken
+        ? { accessToken: githubToken }
+        : {}),
+    };
+    const loader = new GithubRepoLoader(url, loaderOptions);
 
     let docs = await loader.load();
 
@@ -45,7 +95,7 @@ export const generateEmbeddings = async (url: string) => {
     );
 
     if (!docs.length) {
-      return "No valid source files found";
+      return { status: 422, error: "No supported source files found in this repository" };
     }
 
     // Split smaller to prevent Qdrant payload explosion
@@ -84,7 +134,7 @@ export const generateEmbeddings = async (url: string) => {
       data:{
         name: collectionName,
         repoUrl: url,
-        userId: session.user.id,
+        userId: user.id,
       }
     })
 
@@ -95,7 +145,7 @@ export const generateEmbeddings = async (url: string) => {
 
   } catch (err: any) {
     console.error("Embedding Error:", err.message);
-    return "failed";
+    return { status: 500, error: err instanceof Error ? err.message : "Unable to scan this repository. Please try again." };
   }
 };
 

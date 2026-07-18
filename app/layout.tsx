@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import QuaryClient from "@/provider/QuaryClient";
-import { Poppins } from "next/font/google";
-const inter = Poppins({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800", "900"] });
+import { Inter } from "next/font/google";
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
   applicationName: "readme.MD",
@@ -21,7 +21,7 @@ export default function RootLayout({
         <QuaryClient >
           <Toaster position="top-right"
             reverseOrder={false} />
-          <div className="   w-full  h-screen ">
+          <div className="w-full">
             {children}
           </div>
         </QuaryClient>
